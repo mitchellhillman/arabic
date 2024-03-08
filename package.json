@@ -1,0 +1,11 @@
+{
+  "name": "arabic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "quiz.js",
+  "scripts": {
+    "start": "node quiz.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
