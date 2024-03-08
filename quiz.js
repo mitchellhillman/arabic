@@ -18,10 +18,12 @@ const shuffle = (array) => {
 }
 
 (async () => {
-  const arabicWords = Object.keys(pairs)
-  const shuffled = shuffle(arabicWords)
-  for (word of shuffled) {
-    await new Promise(resolve => rl.question(word, resolve))
+  const words = shuffle(Object.keys(pairs))
+
+  for (let step = 0; step < words.length; step++) {
+    const word = words[step]
+    await new Promise(resolve => rl.question(`${step + 1}/${words.length}: ${word}`, resolve))
+    
     console.log(`${word} => ${pairs[word]}`)
   }
   console.log('\nComplete!')
