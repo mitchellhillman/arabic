@@ -7,9 +7,20 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
+const shuffle = (array) => {
+  let currIndex = array.length, randomIndex;
+  while(currIndex > 0) {
+    randomIndex = Math.floor(Math.random() * currIndex);
+    currIndex--;
+    [array[currIndex], array[randomIndex]] = [array[randomIndex], array[currIndex]];
+  }
+  return array
+}
+
 (async () => {
   const arabicWords = Object.keys(pairs)
-  for (word of arabicWords) {
+  const shuffled = shuffle(arabicWords)
+  for (word of shuffled) {
     await new Promise(resolve => rl.question(word, resolve))
     console.log(`${word} => ${pairs[word]}`)
   }
