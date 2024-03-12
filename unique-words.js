@@ -15,15 +15,11 @@ function getUniqueWords(string) {
     }, []);
 }
 const uniques = getUniqueWords(string);
-
-const pairs = uniques.map((word) => {
-  return [word, "foobar"];
-});
-
+const csvString = uniques.map((word) => `${word}, "foobar"`).join("\n");
 require("fs").writeFile(
-  "./uniques.json",
+  "./uniques.csv",
 
-  JSON.stringify(pairs),
+  csvString,
 
   function (err) {
     if (err) {
@@ -31,23 +27,3 @@ require("fs").writeFile(
     }
   }
 );
-
-const readline = require("readline");
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-(async () => {
-  for (pair of pairs) {
-    let answer = await new Promise((resolve) =>
-      rl.question(pair.arabic, resolve)
-    );
-    console.log(
-      `${answer === pair.english}! ${pair.arabic} means ${pair.english}`
-    );
-  }
-  console.log("complete!");
-  readline.close();
-})();
