@@ -1,50 +1,53 @@
-const string = require('./alsinwar.js')
+const string = require("./alsinwar.js");
 
 function getUniqueWords(string) {
   return string
-    .split(' ')
+    .split(" ")
     .sort()
-    .map(word => word.replace(/[^ء-ي]+/g, ''))
-    .filter(word => !word.match(/[a-z0-9]/ig))
-    .filter(word => word != "")
-    .reduce((acc, curr) => {                
-        if(acc.indexOf(curr) < 1) {
-            acc.push(curr)
-        }
-        return acc
-    }, [])
+    .map((word) => word.replace(/[^ء-ي]+/g, ""))
+    .filter((word) => !word.match(/[a-z0-9]/gi))
+    .filter((word) => word != "")
+    .reduce((acc, curr) => {
+      if (acc.indexOf(curr) < 1) {
+        acc.push(curr);
+      }
+      return acc;
+    }, []);
 }
-const uniques = getUniqueWords(string)
+const uniques = getUniqueWords(string);
 
-const pairs = uniques.map(word => {
-    return {arabic: word, english: 'foobar'}
-})
+const pairs = uniques.map((word) => {
+  return [word, "foobar"];
+});
 
-require('fs').writeFile(
+require("fs").writeFile(
+  "./uniques.json",
 
-    './vocab.json',
+  JSON.stringify(pairs),
 
-    JSON.stringify(pairs),
-
-    function (err) {
-        if (err) {
-            console.error('Crap happens');
-        }
+  function (err) {
+    if (err) {
+      console.error("Crap happens");
     }
+  }
 );
 
-const readline = require('readline');
+const readline = require("readline");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
 
 (async () => {
   for (pair of pairs) {
-    let answer = await new Promise(resolve => rl.question(pair.arabic, resolve))
-    console.log(`${answer === pair.english}! ${pair.arabic} means ${pair.english}`)
+    let answer = await new Promise((resolve) =>
+      rl.question(pair.arabic, resolve)
+    );
+    console.log(
+      `${answer === pair.english}! ${pair.arabic} means ${pair.english}`
+    );
   }
-  console.log('complete!')
-  readline.close()
-})()
+  console.log("complete!");
+  readline.close();
+})();
