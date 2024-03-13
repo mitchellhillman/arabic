@@ -14,6 +14,7 @@ function getUniqueWords(string) {
       return acc;
     }, []);
 }
+
 const uniques = getUniqueWords(string);
 const csvString = uniques.map((word) => `${word}, "foobar"`).join("\n");
 require("fs").writeFile(
